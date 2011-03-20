@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.0.1.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+		<title lang="en">Viewtopic Birthday</title>
+		<description lang="en">Display a birthday cake in viewtopic if it's the user's birthday.</description>
+		<author-notes lang="en">This MOD displays a little cake in the mini profile on viewtopic for any users who have birthday.
+
+The image was taken from TerraFrosts' phpBB 2.0 birthday MOD.</author-notes>
+		<author-group>
+			<author>
+				<realname>Igor Wiedler</realname>
+				<email>evil@phpbbmodders.net</email>
+				<username>evil&lt;3</username>
+				<homepage>http://phpbbmodders.net</homepage>
+			</author>
+		</author-group>
+		<mod-version>
+			<major>1</major>
+			<minor>0</minor>
+			<revision>0</revision>
+		</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>180</time>
+			<target-version>
+				<target-primary>3.0.0</target-primary>
+				<target-major allow="exact">3</target-major>
+				<target-minor allow="exact">0</target-minor>
+				<target-revision allow="after-equal">0</target-revision>
+			</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2008-03-22</date>
+				<rev-version>
+					<major>0</major>
+					<minor>1</minor>
+					<revision>0</revision>
+				</rev-version>
+				<changelog lang="en">
+					<change>Initial release</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2008-05-11</date>
+				<rev-version>
+					<major>1</major>
+					<minor>0</minor>
+					<revision>0</revision>
+				</rev-version>
+				<changelog lang="en">
+					<change>Viewprofile birthday addon added per jalaln's request</change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/styles/prosilver/imageset/icon_birthday.gif" to="styles/prosilver/imageset/icon_birthday.gif"/>
+		</copy>
+		<open src="viewtopic.php">
+			<edit>
+				<find>				'warnings'			=&gt; 0,
+				'allow_pm'			=&gt; 0,</find>
+				<action type="after-add">				// viewtopic birthday
+				'viewtopic_birthday'=&gt; false,</action>
+			</edit>
+			<edit>
+				<find>					$user_cache[$poster_id]['age'] = (int) ($now['year'] - $bday_year - $diff);
+				}
+			}</find>
+				<action type="after-add"><![CDATA[			// viewtopic birthday
+			$user_cache[$poster_id]['viewtopic_birthday'] = false;
+			if ($config['allow_birthdays'] && !empty($row['user_birthday']))
+			{
+				list($bday_day, $bday_month) = array_map('intval', explode('-', $row['user_birthday']));
+
+				if ($bday_day === (int) $now['mday'] && $bday_month === (int) $now['mon'])
+				{
+					$user_cache[$poster_id]['viewtopic_birthday'] = true;
+				}
+			}]]></action>
+			</edit>
+			<edit>
+				<find>		'POSTER_AGE'		=&gt; $user_cache[$poster_id]['age'],</find>
+				<action type="after-add">		// viewtopic birthday
+		'BIRTHDAY_IMG'		=&gt; $user_cache[$poster_id]['viewtopic_birthday'] ? $user-&gt;img('icon_birthday', 'VIEWTOPIC_BIRTHDAY') : false,</action>
+			</edit>
+		</open>
+		<open src="includes/acp/acp_styles.php">
+			<edit>
+				<find>			'user'		=&gt; array(
+				'user_icon1', 'user_icon2', 'user_icon3', 'user_icon4', 'user_icon5', 'user_icon6', 'user_icon7', 'user_icon8', 'user_icon9', 'user_icon10',
+			),
+		);</find>
+				<action type="after-add">		// viewtopic birthday
+		$this-&gt;imageset_keys['icons'][] = 'icon_birthday';</action>
+			</edit>
+		</open>
+		<open src="language/en/common.php">
+			<edit>
+				<find>?&gt;</find>
+				<action type="before-add">// viewtopic birthday
+$lang = array_merge($lang, array(
+	'VIEWTOPIC_BIRTHDAY'	=&gt; 'Birthday',
+));</action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/imageset/imageset.cfg">
+			<edit>
+				<find>img_icon_user_warn = icon_user_warn.gif*20*20</find>
+				<action type="after-add">img_icon_birthday = icon_birthday.gif*40*40</action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/viewtopic_body.html">
+			<edit>
+				<find><![CDATA[		<!-- BEGIN custom_fields -->
+			<dd><strong>{postrow.custom_fields.PROFILE_FIELD_NAME}:</strong> {postrow.custom_fields.PROFILE_FIELD_VALUE}</dd>
+		<!-- END custom_fields -->]]></find>
+				<action type="after-add"><![CDATA[		<!-- IF postrow.BIRTHDAY_IMG -->
+		<dd>&nbsp;</dd>
+		<dd>{postrow.BIRTHDAY_IMG}</dd>
+		<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>
