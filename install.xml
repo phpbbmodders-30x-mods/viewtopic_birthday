@@ -14,7 +14,7 @@ The image was taken from TerraFrosts' phpBB 2.0 birthday MOD.</author-notes>
 				<realname>Rich McGirr</realname>
 				<username>RMcGirr83</username>
 				<homepage>http://phpbbmodders.net</homepage>
-			</author>		
+			</author>
 			<author>
 				<realname>Igor Wiedler</realname>
 				<email>evil@phpbbmodders.net</email>
@@ -22,10 +22,10 @@ The image was taken from TerraFrosts' phpBB 2.0 birthday MOD.</author-notes>
 				<homepage>http://phpbbmodders.net</homepage>
       		<contributions-group>
       		  <contributions status="past" from="2008-03-22" to="2011-05-29" position="Developer"/>
-      		</contributions-group>				
+      		</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.0.a</mod-version>
+		<mod-version>1.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>180</time>
@@ -48,11 +48,11 @@ The image was taken from TerraFrosts' phpBB 2.0 birthday MOD.</author-notes>
 			</entry>
 			<entry>
 				<date>2011-05-29</date>
-				<rev-version>1.0.0.a</rev-version>
+				<rev-version>1.0.1</rev-version>
 				<changelog lang="en">
 					<change>MODx update</change>
 				</changelog>
-			</entry>			
+			</entry>
 		</history>
 	</header>
 	<action-group>
@@ -125,9 +125,9 @@ $lang = array_merge($lang, array(
 			</edit>
 		</open>
 	<diy-instructions lang="en"><![CDATA[*** NOTE: If you are installing via Automod you may skip to step 2 ***
-1. Make all edits to all files and upload them to your forum.    
+1. Make all edits to all files and upload them to your forum.
 2. Refresh the template and imageset for prosilver
 3. Enjoy the Mod!!
-	]]></diy-instructions>		
+	]]></diy-instructions>
 	</action-group>
 </mod>
