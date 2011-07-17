@@ -25,11 +25,11 @@ The image was taken from TerraFrosts' phpBB 2.0 birthday MOD.</author-notes>
       		</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.1</mod-version>
+		<mod-version>1.0.1.a</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>180</time>
-			<target-version>3.0.8</target-version>
+			<target-version>3.0.9</target-version>
 		</installation>
 		<history>
 			<entry>
@@ -53,6 +53,13 @@ The image was taken from TerraFrosts' phpBB 2.0 birthday MOD.</author-notes>
 					<change>MODx update</change>
 				</changelog>
 			</entry>
+			<entry>
+				<date>2011-07-17</date>
+				<rev-version>1.0.1.a</rev-version>
+				<changelog lang="en">
+					<change>fix missing language in language/en/acp/styles.php</change>
+				</changelog>
+			</entry>			
 		</history>
 	</header>
 	<action-group>
@@ -98,6 +105,15 @@ The image was taken from TerraFrosts' phpBB 2.0 birthday MOD.</author-notes>
 		$this->imageset_keys['icons'][] = 'icon_birthday';]]></action>
 			</edit>
 		</open>
+		<open src="language/en/acp/styles.php">
+			<edit>
+				<find><![CDATA[?>]]></find>
+				<action type="before-add"><![CDATA[// viewtopic birthday
+$lang = array_merge($lang, array(
+	'IMG_ICON_BIRTHDAY'   => 'Viewtopic birthday',
+));]]></action>
+			</edit>
+		</open>		
 		<open src="language/en/common.php">
 			<edit>
 				<find><![CDATA[?>]]></find>
